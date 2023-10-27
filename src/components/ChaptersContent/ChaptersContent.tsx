@@ -1,9 +1,7 @@
 import * as React from "react";
 import {
   Card,
-  CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -21,7 +19,7 @@ const Component: React.FC<ChapterContentProps> = ({
         highlightedChapter?.id === chapter.id
           ? "bg-purple-950 text-white my-5"
           : "bg-white my-5"
-    }
+      }
     >
       <CardHeader>
         <CardTitle>{chapter.name}</CardTitle>

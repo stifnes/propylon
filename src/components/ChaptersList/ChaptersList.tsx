@@ -48,7 +48,7 @@ const NestedList: React.FC<NestedChapterProps> = ({
   const rootElements = chapters.filter((chapter) => chapter.level === 1);
 
   return (
-    <div>
+    <div className="w-1/5">
       {rootElements.map((chapter) => (
         <Accordion
           type="single"
