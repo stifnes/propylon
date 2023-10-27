@@ -4,9 +4,17 @@ import useData from "./api/index";
 import NestedList from "./components/ChaptersList/ChaptersList";
 import ChapterComponent from "./components/ChaptersContent/ChaptersContent";
 import { Chapter } from "./shared_types/Chapter.types";
+import { useQuery } from 'react-query';
 
 function App() {
-  const { data, isLoading, isError } = useData();
+  const { data, isLoading, isError } = useQuery(
+    {
+      queryKey: ["chapters", {}],
+      queryFn: () => useData(),
+      initialData: () => {},
+      cacheTime: 0,
+    }
+  );
   const [highlightedChapter, sethighlightedChapter] = useState<Chapter>();
   const [elementsWithSameLevel, setElementsWithSameLevel] = useState<Chapter[]>([]);
 
@@ -38,12 +46,12 @@ function App() {
           onItemClick={handleItemClick}
           highlightedChapter={highlightedChapter}
         />
-        <div className="content p-4 border ml-3">
+        <div className="content ml-5">
           <div className="text-xl font-black">{highlightedChapter?.name}</div>
           {elementsWithSameLevel.map((element) => (
             <ChapterComponent
               key={element.name}
-              onClick={() => sethighlightedChapter(element)}
+              onClick={() => {sethighlightedChapter(element), setElementsWithSameLevel([element])}}
               chapter={element}
               highlightedChapter={highlightedChapter}
             />

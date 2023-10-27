@@ -19,16 +19,14 @@ const Component: React.FC<ChapterContentProps> = ({
       onClick={() => onClick(chapter)}
       className={
         highlightedChapter?.id === chapter.id
-          ? "bg-purple-950 text-white my-3"
-          : "bg-white my-3"
-      }
+          ? "bg-purple-950 text-white my-5"
+          : "bg-white my-5"
+    }
     >
       <CardHeader>
         <CardTitle>{chapter.name}</CardTitle>
         <CardDescription>{chapter.content}</CardDescription>
       </CardHeader>
-      <CardContent></CardContent>
-      <CardFooter className="flex justify-between"></CardFooter>
     </Card>
   );
 };
