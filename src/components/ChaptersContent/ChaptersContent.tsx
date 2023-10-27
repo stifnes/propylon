@@ -19,7 +19,7 @@ const Component: React.FC<ChapterContentProps> = ({
       onClick={() => onClick(chapter)}
       className={
         highlightedChapter?.id === chapter.id
-          ? "bg-slate-200 my-3"
+          ? "bg-purple-950 text-white my-3"
           : "bg-white my-3"
       }
     >

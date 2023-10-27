@@ -10,6 +10,13 @@ function App() {
   const [highlightedChapter, sethighlightedChapter] = useState<Chapter>();
   const [elementsWithSameLevel, setElementsWithSameLevel] = useState<Chapter[]>([]);
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (isError) {
+    return <div>Error loading data.</div>;
+  }
+
   const handleItemClick = (chapter: Chapter) => {
     sethighlightedChapter(chapter);
     const chapters = data.content.document.filter(
@@ -19,13 +26,6 @@ function App() {
     setElementsWithSameLevel(chapters.length > 0 ? chapters : [chapter]);
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (isError) {
-    return <div>Error loading data.</div>;
-  }
 
   return (
     <>

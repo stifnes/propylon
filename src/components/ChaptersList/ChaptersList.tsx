@@ -29,9 +29,9 @@ const NestedList: React.FC<NestedChapterProps> = ({
             <AccordionTrigger
               onClick={() => onItemClick(chapter)}
               className={cn(
-                chapter.level === 3 ? "pl-8" : "pl-4",
+                chapter.level === 3 ? "pl-10" : "pl-6",
                 highlightedChapter?.id === chapter.id
-                  ? "bg-slate-200"
+                  ? "bg-purple-950 text-white"
                   : "bg-white"
               )}
             >
@@ -60,7 +60,7 @@ const NestedList: React.FC<NestedChapterProps> = ({
             <AccordionTrigger
               className={
                 highlightedChapter?.id === chapter.id
-                  ? "bg-slate-200"
+                  ? "bg-purple-950 text-white"
                   : "bg-white"
               }
               onClick={() => onItemClick(chapter)}
