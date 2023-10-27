@@ -3,27 +3,44 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion"
+} from "@/components/ui/accordion";
+import { cn } from "@/lib/utils";
 
-import {Chapter} from '../../shared_types/Chapter.types'
-import {NestedChapterProps} from './ChaptersList.types'
+import { Chapter } from "../../shared_types/Chapter.types";
+import { NestedChapterProps } from "./ChaptersList.types";
 
-const NestedList: React.FC<NestedChapterProps> = ({ chapters, onItemClick, highlightedChapter }) => {
+const NestedList: React.FC<NestedChapterProps> = ({
+  chapters,
+  onItemClick,
+  highlightedChapter,
+}) => {
   const buildNestedHierarchy = (
     chapters: Chapter[],
     parent_id: string | null,
     level: number
   ) => {
     return chapters
-      .filter((chapter) => chapter.parent_id === parent_id && chapter.level === level)
+      .filter(
+        (chapter) => chapter.parent_id === parent_id && chapter.level === level
+      )
       .map((chapter) => (
-      <Accordion type="single" collapsible key={chapter.name}>
+        <Accordion type="single" collapsible key={chapter.name}>
           <AccordionItem value={chapter.id}>
-              <AccordionTrigger  className={highlightedChapter?.id === chapter.id ? 'bg-slate-400' : 'bg-white'} onClick={() => onItemClick(chapter)} >{chapter.name}</AccordionTrigger>
-              <AccordionContent>
+            <AccordionTrigger
+              onClick={() => onItemClick(chapter)}
+              className={cn(
+                chapter.level === 3 ? "pl-8" : "pl-4",
+                highlightedChapter?.id === chapter.id
+                  ? "bg-slate-200"
+                  : "bg-white"
+              )}
+            >
+              {chapter.name}
+            </AccordionTrigger>
+            <AccordionContent>
               {buildNestedHierarchy(chapters, chapter.id, chapter.level + 1)}
-              </AccordionContent>
-            </AccordionItem>
+            </AccordionContent>
+          </AccordionItem>
         </Accordion>
       ));
   };
@@ -33,18 +50,31 @@ const NestedList: React.FC<NestedChapterProps> = ({ chapters, onItemClick, highl
   return (
     <div>
       {rootElements.map((chapter) => (
-        <Accordion type="single" collapsible key={chapter.id}>
+        <Accordion
+          type="single"
+          className="border-t"
+          collapsible
+          key={chapter.name}
+        >
           <AccordionItem value={chapter.id}>
-              <AccordionTrigger className={highlightedChapter?.id === chapter.id ? 'bg-slate-400' : 'bg-white'} onClick={() => onItemClick(chapter)} >{chapter.name}</AccordionTrigger>
-              <AccordionContent>
+            <AccordionTrigger
+              className={
+                highlightedChapter?.id === chapter.id
+                  ? "bg-slate-200"
+                  : "bg-white"
+              }
+              onClick={() => onItemClick(chapter)}
+            >
+              {chapter.name}
+            </AccordionTrigger>
+            <AccordionContent>
               {buildNestedHierarchy(chapters, chapter.id, chapter.level + 1)}
-              </AccordionContent>
-            </AccordionItem>
+            </AccordionContent>
+          </AccordionItem>
         </Accordion>
       ))}
     </div>
   );
 };
 
-
-export default NestedList
+export default NestedList;
